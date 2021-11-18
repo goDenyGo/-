@@ -1,0 +1,263 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    Головний файл дисертаційної роботи  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,14pt]{extreport}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    Налаштування основного документа    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ukrainian]{babel}
+
+\usepackage[unicode, hidelinks]{hyperref}
+
+
+\hypersetup{colorlinks=false}
+\hypersetup{unicode=true} % Прибирає hyperref Warning
+
+\usepackage{lastpage}
+\usepackage{graphicx}
+
+
+\usepackage{multirow}
+\usepackage{array}
+
+
+\usepackage{afterpage} % Вставка пустої сторінки
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+% maybe unused
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage[table,xcdraw]{xcolor}
+
+\usepackage{Styles/zvit}
+
+% for literature
+\usepackage{datetime}
+\renewcommand{\dateseparator}{.}
+\newcommand{\todayiso}{10.11.2018}
+
+\usepackage{Styles/bibspacing-report}
+\setlength{\bibspacing}{\baselineskip}
+
+\usepackage{lastpage}
+
+
+
+%%%%% Міжрядковий інтервал %%%%%%%%%
+\renewcommand{\baselinestretch}{1.5}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%       Лічильники   %
+%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\usepackage{totcount}
+
+%\newtotcounter{citenum}
+%\def\oldcite{}
+%\let\oldcite=\bibcite
+%\def\bibcite{\stepcounter{citenum}\oldcite}
+
+%\newcounter{totfigures}
+%\newcounter{tottables}
+%\newcounter{totchapters}
+
+%\providecommand\totfig{} 
+%\providecommand\tottab{}
+%\providecommand\totchap{}
+
+%\makeatletter
+%\AtEndDocument{%
+%  \addtocounter{totfigures}{\value{figure}}%
+%  \addtocounter{tottables}{\value{table}}%
+%  \addtocounter{totchapters}{\value{chapter}}%
+%  \immediate\write\@mainaux{%
+%    \string\gdef\string\totfig{\number\value{totfigures}}%
+%    \string\gdef\string\tottab{\number\value{tottables}}%
+%    \string\gdef\string\totchap{\number\value{totchapters}}%
+%  }%
+%}
+%\makeatother
+
+%\pretocmd{\chapter}{\addtocounter{totfigures}{\value{figure}}\setcounter{figure}{0}}{}{}
+%\pretocmd{\chapter}{\addtocounter{tottables}{\value{table}}\setcounter{table}{0}}{}{}
+%\pretocmd{\chapter}{\addtocounter{totchapters}{\value{chapter}}\setcounter{chapter}{0}}{}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       Налаштування заголовків розділів в тексті    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titleformat % вставляє "РОЗДІЛ" перед номером та назвою розділів в тексті
+{\chapter} 
+[block] % shape
+{} % format
+{\MakeUppercase\chaptertitlename\nobreakspace\thechapter\hspace{1cm}} % label
+{0pt} % sep
+{} % before-code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       Налаштування заголовків розділів в TOC    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tocloft}
+
+%\renewcommand{\cftchapfont}{\bfseries}
+%\renewcommand{\cftchappagefont}{\bfseries}
+%\renewcommand{\cftchapaftersnum}{:}
+\renewcommand{\cftchapnumwidth}{7em}
+\makeatletter
+\newcommand*\updatechaptername{%
+	\addtocontents{toc}{\protect\renewcommand*\protect\cftchappresnum{\MakeUppercase\@chapapp\ }}
+}
+\makeatother 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage[acronym, toc]{glossaries}
+\input{glossaries}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       Тіло основного документа    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       Шрифти з кирилицею          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usefont{T2A}{fcm}{m}{n} % ++++
+%\usefont{T2A}{cmr}{m}{n} % ++++
+%\usefont{T2A}{ftm}{m}{n} % -----
+%\usefont{T2A}{PTSerif-TLF}{m}{n} % --
+%\usefont{T2A}{PTSans-TLF}{m}{n} % +-
+%\usefont{T2A}{cmss}{m}{n} % ---
+%\usefont{T2A}{antt}{m}{n} % +-
+%\usefont{T2A}{Tempora-TLF}{m}{n}
+
+
+
+\frontmatter 
+\input{Chapters/title_page}
+\input{Chapters/authors_list}
+\input{Chapters/abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%       TOC            %
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Add C. to start of contents
+\cftaddtitleline{toc}{part}{}{С.}
+\setcounter{tocdepth}{1} %\Глибина ТОС: від 0(chapter) по 4 (subsubsection)
+\tableofcontents
+\updatechaptername
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       УМОВНІ ПОЗНАЧЕННЯ   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\printglossary[type=\acronymtype,
+              title=\MakeUppercase{Перелік умовних скороченнь}]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+          
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       ВСТУП               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{Chapters/abreviations}
+\input{Chapters/introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       Нумеровані розділи    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mainmatter %% это включает нумерацию глав и секций в документе ниже
+
+\input{Chapters/Chapter_01}
+\input{Chapters/Chapter_02}
+\input{Chapters/Chapter_03}
+\input{Chapters/Chapter_04}
+\input{Chapters/Chapter_05}
+\input{Chapters/Illustrations and tables}
+\input{Chapters/Example}
+%\backmatter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\input{Chapters/conclusion.tex}
+
+%\mainmatter
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%       Бібліографія    %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\addcontentsline{toc}{chapter}{ПЕРЕЛІК ПОСИЛАНЬ}
+%\bibliographystyle{gost780}
+% \bibliographystyle{unsrt}
+ \bibliographystyle{plain}
+\bibliography{Bibliography/literature}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%       Додатки         %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+\updatechaptername
+
+\input{Chapters/appendix-practical-recommendations}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\end{document}
