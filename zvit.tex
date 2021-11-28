@@ -51,7 +51,6 @@
 \usepackage{lastpage}
 
 
-
 %%%%% Міжрядковий інтервал %%%%%%%%%
 \renewcommand{\baselinestretch}{1.5}
 
@@ -62,37 +61,36 @@
 %%%%%%%%%%%%%%%%%%%%%%
 
 
-%\usepackage{totcount}
+\usepackage{totcount}
 
-%\newtotcounter{citenum}
-%\def\oldcite{}
-%\let\oldcite=\bibcite
-%\def\bibcite{\stepcounter{citenum}\oldcite}
+%%%%%  Лічильники малюнків та таблиць (/tottab/ /totfig/) %%%%%%%%
+\usepackage{etoolbox}
 
-%\newcounter{totfigures}
-%\newcounter{tottables}
-%\newcounter{totchapters}
+\newcounter{totfigures}
+\newcounter{tottables}
 
-%\providecommand\totfig{} 
-%\providecommand\tottab{}
-%\providecommand\totchap{}
+\providecommand\totfig{} 
+\providecommand\tottab{}
 
-%\makeatletter
-%\AtEndDocument{%
-%  \addtocounter{totfigures}{\value{figure}}%
-%  \addtocounter{tottables}{\value{table}}%
-%  \addtocounter{totchapters}{\value{chapter}}%
-%  \immediate\write\@mainaux{%
-%    \string\gdef\string\totfig{\number\value{totfigures}}%
-%    \string\gdef\string\tottab{\number\value{tottables}}%
-%    \string\gdef\string\totchap{\number\value{totchapters}}%
-%  }%
-%}
-%\makeatother
+\makeatletter
+\AtEndDocument{%
+  \addtocounter{totfigures}{\value{figure}}%
+  \addtocounter{tottables}{\value{table}}%
+  \immediate\write\@mainaux{%
+    \string\gdef\string\totfig{\number\value{totfigures}}%
+    \string\gdef\string\tottab{\number\value{tottables}}%
+  }%
+}
+\makeatother
 
-%\pretocmd{\chapter}{\addtocounter{totfigures}{\value{figure}}\setcounter{figure}{0}}{}{}
-%\pretocmd{\chapter}{\addtocounter{tottables}{\value{table}}\setcounter{table}{0}}{}{}
-%\pretocmd{\chapter}{\addtocounter{totchapters}{\value{chapter}}\setcounter{chapter}{0}}{}{}
+\pretocmd{\chapter}{\addtocounter{totfigures}{\value{figure}}\setcounter{figure}{0}}{}{}
+\pretocmd{\chapter}{\addtocounter{tottables}{\value{table}}\setcounter{table}{0}}{}{}
+
+%%%%%  Лічильник посиланнь total(citenum) %%%%%%%%
+\newtotcounter{citenum}
+\def\oldbibitem{} \let\oldbibitem=\bibitem
+\def\bibitem{\stepcounter{citenum}\oldbibitem}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -167,6 +165,7 @@
 \input{Chapters/title_page}
 \input{Chapters/authors_list}
 \input{Chapters/abstract}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %       TOC            %
